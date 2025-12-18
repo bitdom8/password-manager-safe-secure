@@ -171,9 +171,7 @@ TBcXFCLLXiReR7rAnRvrjrahLuJEgBhbem
 
 ## 📞 Contact & Support
 
-- 📧 Email: [t.me/formegadmin](https://t.me/formegadmin)
-- 🐦 Twitter: [@securenotes](#)
-- 💬 Telegram: [@formegadmin](https://t.me/formegadmin)
+- 📧 Telegram: [t.me/formegadmin](https://t.me/formegadmin)
 
 ## 📄 License
 
