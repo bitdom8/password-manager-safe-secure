@@ -1,2 +1,1231 @@
 # password-manager-safe-secure
 Sick of password managers that won't let you export, force cloud sync, or have clunky UIs? I built one that actually respects you
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Secure Notes | Military-Grade Encrypted Note Taking</title>
+    <meta name="description" content="End-to-end encrypted note-taking with biometric unlock, multi-device sync, and zero-knowledge architecture. Your notes, truly private.">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #1e293b;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            padding: 4rem 2rem 3rem;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .logo {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+
+        .content-section {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #667eea;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border: 1px solid #e2e8f0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #334155;
+        }
+
+        .feature-description {
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .security-highlight {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 20px;
+            margin: 2rem 0;
+        }
+
+        .security-highlight h2 {
+            color: white;
+        }
+
+        .security-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .security-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .security-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .tech-stack {
+            background: #0f172a;
+            color: white;
+            padding: 3rem;
+            border-radius: 20px;
+            margin: 2rem 0;
+        }
+
+        .tech-stack h2 {
+            color: #60a5fa;
+        }
+
+        .tech-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .tech-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tech-name {
+            font-weight: 600;
+            color: #60a5fa;
+            margin-bottom: 0.25rem;
+        }
+
+        .tech-desc {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 3rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            margin: 2rem 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+            display: table;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .comparison-table th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        .comparison-table th:first-child,
+        .comparison-table td:first-child {
+            position: sticky;
+            left: 0;
+            background: white;
+            z-index: 2;
+        }
+
+        .comparison-table th:first-child {
+            background: #f8fafc;
+            z-index: 3;
+        }
+
+        .check {
+            color: #10b981;
+            font-size: 1.5rem;
+        }
+
+        .cross {
+            color: #ef4444;
+            font-size: 1.5rem;
+        }
+
+        /* Table wrapper for horizontal scroll */
+        .table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 2rem -1.5rem 0;
+            padding: 0 1.5rem;
+        }
+
+        .table-scroll-hint {
+            display: none;
+            text-align: center;
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            background: #f1f5f9;
+            border-radius: 8px;
+        }
+
+        /* Mobile comparison cards */
+        .comparison-mobile {
+            display: none;
+        }
+
+        .competitor-card {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 2px solid #e2e8f0;
+        }
+
+        .competitor-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .comparison-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .comparison-row:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-row .feature-name {
+            font-weight: 500;
+            color: #475569;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: white;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+            padding: 0rem;
+        }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .tagline {
+                font-size: 1.2rem;
+            }
+
+            .content-section {
+                padding: 2rem 1.5rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* Show scroll hint on mobile */
+            .table-scroll-hint {
+                display: block;
+            }
+
+            /* Make table more compact on mobile */
+            .comparison-table th,
+            .comparison-table td {
+                padding: 0.75rem 0.5rem;
+                font-size: 0.9rem;
+                white-space: nowrap;
+            }
+
+            .comparison-table th:first-child,
+            .comparison-table td:first-child {
+                min-width: 140px;
+                white-space: normal;
+            }
+
+            .check, .cross {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">🔐</div>
+        <h1>Secure Notes</h1>
+        <p class="tagline">Military-grade encryption meets effortless note-taking</p>
+        <div class="badge">🔒 Hardened Edition</div>
+    </header>
+
+    <div class="container">
+        <div class="content-section">
+            <h2>Why Secure Notes?</h2>
+            <p style="font-size: 1.2rem; color: #475569; margin-bottom: 2rem;">
+                Your thoughts, ideas, and sensitive information deserve the highest level of protection. Secure Notes combines 
+                <strong>end-to-end encryption</strong>, <strong>biometric authentication</strong>, and <strong>multi-device sync</strong> 
+                to create the most secure note-taking experience available.
+            </p>
+            
+            <p style="font-size: 1.1rem; color: #64748b;">
+                Unlike traditional note apps that store your data in plain text on their servers, <strong>every single note</strong> 
+                is encrypted on your device before it ever leaves. Not even we can read your notes. That's the power of 
+                <strong>zero-knowledge architecture</strong>.
+            </p>
+        </div>
+
+        <div class="security-highlight">
+            <h2>🛡️ Bank-Level Security Features</h2>
+            <div class="security-features">
+                <div class="security-item">
+                    <div class="security-icon">🔐</div>
+                    <div>
+                        <strong>XChaCha20-Poly1305 AEAD</strong><br>
+                        Military-grade authenticated encryption that's faster and more secure than AES
+                    </div>
+                </div>
+                <div class="security-item">
+                    <div class="security-icon">🧂</div>
+                    <div>
+                        <strong>Argon2id Key Derivation</strong><br>
+                        Winner of the Password Hashing Competition, resistant to GPU/ASIC attacks
+                        
+                    </div>
+                </div>
+
+                
+                <div class="security-item">
+                    <div class="security-icon">👆</div>
+                    <div>
+                        <strong>WebAuthn Biometrics</strong><br>
+                        Unlock with fingerprint or face ID - your password never touches the disk
+                    </div>
+                </div>
+                <div class="security-item">
+                    <div class="security-icon">🌐</div>
+                    <div>
+                        <strong>Zero-Knowledge Sync</strong><br>
+                        Multi-device sync with encrypted data - we never see your plain text notes
+                    </div>
+                </div>
+                <div class="security-item">
+                    <div class="security-icon">🚫</div>
+                    <div>
+                        <strong>DOMPurify XSS Protection</strong><br>
+                        Advanced sanitization prevents code injection attacks
+                    </div>
+                </div>
+                <div class="security-item">
+                    <div class="security-icon">⏱️</div>
+                    <div>
+                        <strong>Replay Attack Prevention</strong><br>
+                        Nonce validation and timestamp verification block replay attacks
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>✨ Powerful Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-title">Multi-Device Sync</div>
+                    <div class="feature-description">
+                        Access your notes on any device with automatic cloud sync. New device alerts keep you informed when someone accesses your vault.
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📤</div>
+                    <div class="feature-title">Encrypted Export/Import</div>
+                    <div class="feature-description">
+                        Export notes with password protection. Import individual files or entire vaults with duplicate detection and smart conflict resolution.
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <div class="feature-title">Instant Search</div>
+                    <div class="feature-description">
+                        Find any note instantly with real-time search across titles and content. Works offline without any network connection.
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💾</div>
+                    <div class="feature-title">Offline-First</div>
+                    <div class="feature-description">
+                        Works perfectly without internet. All encryption happens locally in your browser - no server-side processing ever.
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <div class="feature-title">Auto-Lock</div>
+                    <div class="feature-description">
+                        Vault automatically locks after 5 minutes of inactivity, protecting your notes if you step away from your device.
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-title">Device Management</div>
+                    <div class="feature-description">
+                        Track all devices that have accessed your vault. Remove old devices and get email alerts for new device logins.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🆚 How We Compare</h2>
+            
+            <!-- Scrollable Table -->
+            <div class="table-wrapper">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Secure Notes</th>
+                            <th>Google Keep</th>
+                            <th>Evernote</th>
+                            <th>Apple Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>End-to-End Encryption</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Zero-Knowledge Architecture</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="cross">✗</span></td>
+                        </tr>
+                        <tr>
+                            <td>Biometric Unlock</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Device Access Alerts</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="cross">✗</span></td>
+                        </tr>
+                        <tr>
+                            <td>Open Source Crypto</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="cross">✗</span></td>
+                        </tr>
+                        <tr>
+                            <td>Cross-Platform</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="cross">✗</span></td>
+                        </tr>
+                        <tr>
+                            <td>Free</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-scroll-hint">👉 Swipe left to compare more apps</div>
+        </div>
+
+ <div class="content-section">
+    <h2>🔐 Security & Trust Comparison</h2>
+    <p style="color: #64748b; margin-bottom: 1.5rem;">
+        Understanding who can access your data and how long it would take to break the encryption.
+    </p>
+    
+    <!-- Security Table -->
+    <div class="table-wrapper">
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Security Aspect</th>
+                    <th>Secure Notes</th>
+                    <th>Google Keep</th>
+                    <th>Evernote</th>
+                    <th>Apple Notes</th>
+                    <th>1Password</th>
+                    <th>Authy</th>
+                    <th>Keeper</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Server Can Read Your Notes</td>
+                    <td><span class="cross">✗ Never</span></td>
+                    <td><span class="check" style="color: #f59e0b;">⚠️ Yes</span></td>
+                    <td><span class="check" style="color: #f59e0b;">⚠️ Yes</span></td>
+                    <td><span class="cross">✗ No</span></td>
+                    <td><span class="cross">✗ Never</span></td>
+                    <td><span class="cross">✗ Never</span></td>
+                    <td><span class="cross">✗ Never</span></td>
+                </tr>
+                <tr>
+                    <td>Employees Can Access Data</td>
+                    <td><span class="cross">✗ Never</span></td>
+                    <td><span class="check" style="color: #f59e0b;">⚠️ Yes</span></td>
+                    <td><span class="check" style="color: #f59e0b;">⚠️ Yes</span></td>
+                    <td><span class="check" style="color: #f59e0b;">⚠️ Possible</span></td>
+                    <td><span class="cross">✗ Never</span></td>
+                    <td><span class="cross">✗ Never</span></td>
+                    <td><span class="cross">✗ Never</span></td>
+                </tr>
+                <tr>
+                    <td>Government Can Request Data</td>
+                    <td style="font-size: 0.85rem;">Only encrypted blobs<br><span style="color: #10b981;">(useless without password)</span></td>
+                    <td style="font-size: 0.85rem;">Full plain text access</td>
+                    <td style="font-size: 0.85rem;">Full plain text access</td>
+                    <td style="font-size: 0.85rem;">Encrypted data only</td>
+                    <td style="font-size: 0.85rem;">Only encrypted data<br><span style="color: #10b981;">(zero-knowledge)</span></td>
+                    <td style="font-size: 0.85rem;">Only encrypted data<br><span style="color: #10b981;">(zero-knowledge)</span></td>
+                    <td style="font-size: 0.85rem;">Only encrypted data<br><span style="color: #10b981;">(zero-knowledge)</span></td>
+                </tr>
+                <tr>
+                    <td>Data Breach Impact</td>
+                    <td style="font-size: 0.85rem; color: #10b981;"><strong>✓ Minimal</strong><br>Encrypted data useless</td>
+                    <td style="font-size: 0.85rem; color: #ef4444;"><strong>✗ Severe</strong><br>All notes exposed</td>
+                    <td style="font-size: 0.85rem; color: #ef4444;"><strong>✗ Severe</strong><br>All notes exposed</td>
+                    <td style="font-size: 0.85rem; color: #f59e0b;"><strong>⚠️ Moderate</strong><br>Encrypted but iCloud key may help</td>
+                    <td style="font-size: 0.85rem; color: #10b981;"><strong>✓ Minimal</strong><br>Encrypted data useless</td>
+                    <td style="font-size: 0.85rem; color: #10b981;"><strong>✓ Minimal</strong><br>Encrypted data useless</td>
+                    <td style="font-size: 0.85rem; color: #10b981;"><strong>✓ Minimal</strong><br>Encrypted data useless</td>
+                </tr>
+                <tr>
+                    <td>Encryption Algorithm</td>
+                    <td style="font-size: 0.85rem;"><strong>XChaCha20-Poly1305</strong><br>Military-grade AEAD</td>
+                    <td style="font-size: 0.85rem;">None<br>(TLS only in transit)</td>
+                    <td style="font-size: 0.85rem;">None<br>(TLS only in transit)</td>
+                    <td style="font-size: 0.85rem;">AES-256-GCM<br>(with device key)</td>
+                    <td style="font-size: 0.85rem;"><strong>AES-256</strong><br>Industry standard</td>
+                    <td style="font-size: 0.85rem;"><strong>AES-256</strong><br>Industry standard</td>
+                    <td style="font-size: 0.85rem;"><strong>AES-256-GCM</strong><br>+ ChaCha20</td>
+                </tr>
+                <tr>
+                    <td>Time to Break Encryption<br><span style="font-size: 0.8rem; font-weight: normal; color: #64748b;">(with strong 12-char password)</span></td>
+                    <td style="font-size: 0.85rem; color: #10b981;"><strong>~10²⁴ years</strong><br>Longer than universe age</td>
+                    <td style="font-size: 0.85rem; color: #ef4444;"><strong>Instant</strong><br>No encryption at rest</td>
+                    <td style="font-size: 0.85rem; color: #ef4444;"><strong>Instant</strong><br>No encryption at rest</td>
+                    <td style="font-size: 0.85rem; color: #10b981;"><strong>~10²² years</strong><br>Very secure</td>
+                    <td style="font-size: 0.85rem; color: #10b981;"><strong>~10²³ years</strong><br>Extremely secure</td>
+                    <td style="font-size: 0.85rem; color: #10b981;"><strong>~10²³ years</strong><br>Extremely secure</td>
+                    <td style="font-size: 0.85rem; color: #10b981;"><strong>~10²³ years</strong><br>Extremely secure</td>
+                </tr>
+                <tr>
+                    <td>Brute Force Protection</td>
+                    <td style="font-size: 0.85rem;"><strong>Argon2id</strong><br>Memory-hard, GPU-resistant</td>
+                    <td style="font-size: 0.85rem;">N/A<br>(no password protection)</td>
+                    <td style="font-size: 0.85rem;">N/A<br>(no password protection)</td>
+                    <td style="font-size: 0.85rem;">PBKDF2<br>Standard iOS protection</td>
+                    <td style="font-size: 0.85rem;"><strong>PBKDF2-HMAC-SHA256</strong><br>100,000+ iterations</td>
+                    <td style="font-size: 0.85rem;"><strong>PBKDF2</strong><br>Industry standard</td>
+                    <td style="font-size: 0.85rem;"><strong>PBKDF2</strong><br>1,000,000+ iterations</td>
+                </tr>
+                <tr>
+                    <td>Trust Model</td>
+                    <td style="font-size: 0.85rem; color: #10b981;"><strong>Zero-Trust</strong><br>Verify cryptography yourself</td>
+                    <td style="font-size: 0.85rem; color: #f59e0b;"><strong>Trust Google</strong><br>Closed source</td>
+                    <td style="font-size: 0.85rem; color: #f59e0b;"><strong>Trust Evernote</strong><br>Closed source</td>
+                    <td style="font-size: 0.85rem; color: #f59e0b;"><strong>Trust Apple</strong><br>Closed source</td>
+                    <td style="font-size: 0.85rem; color: #10b981;"><strong>Zero-Knowledge</strong><br>Audited by experts</td>
+                    <td style="font-size: 0.85rem; color: #10b981;"><strong>Zero-Knowledge</strong><br>Security audited</td>
+                    <td style="font-size: 0.85rem; color: #10b981;"><strong>Zero-Knowledge</strong><br>SOC 2 certified</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="table-scroll-hint">👉 Swipe left to see more security details<br>Please verify with official sources</div>  
+
+    <div style="margin-top: 2rem; padding: 1.5rem; background: #fef3c7; border-left: 4px solid #f59e0b; border-radius: 8px;">
+        <strong style="color: #92400e;">⚠️ What This Means:</strong>
+        <p style="color: #78350f; margin-top: 0.5rem; line-height: 1.6;">
+            With <strong>Secure Notes</strong>, even if our servers are hacked, government subpoenaed, or employees go rogue, 
+            your notes remain encrypted. Breaking the encryption would take <strong>trillions of years</strong> even with 
+            the world's fastest supercomputers. Password managers like <strong>1Password, Authy, and Keeper</strong> use similar 
+            zero-knowledge encryption, while services like <strong>Google Keep and Evernote</strong> can read your notes in plain text.
+        </p>
+    </div>
+</div>
+
+
+        <div class="tech-stack">
+            <h2>⚙️ Technology Stack</h2>
+            <p style="opacity: 0.9; margin-bottom: 1rem;">
+                Built with cutting-edge cryptography libraries and modern web technologies for maximum security and performance.
+            </p>
+            <div class="tech-list">
+                <div class="tech-item">
+                    <div class="tech-name">libsodium-sumo</div>
+                    <div class="tech-desc">Cryptographic library trusted by Signal and WhatsApp</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-name">Argon2id</div>
+                    <div class="tech-desc">Memory-hard password hashing algorithm</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-name">XChaCha20-Poly1305</div>
+                    <div class="tech-desc">Authenticated encryption with extended nonce</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-name">WebAuthn</div>
+                    <div class="tech-desc">W3C standard for biometric authentication</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-name">IndexedDB</div>
+                    <div class="tech-desc">Client-side encrypted storage</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-name">Alpine.js</div>
+                    <div class="tech-desc">Lightweight reactive framework</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-name">Bun + SQLite</div>
+                    <div class="tech-desc">High-performance backend with WAL mode</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-name">DOMPurify</div>
+                    <div class="tech-desc">XSS sanitization library</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+    <h2>📊 Encryption Security Comparison</h2>
+    <p style="color: #64748b; margin-bottom: 2rem;">
+        Visual comparison of encryption algorithms and key derivation functions. Higher and further right = better security.
+    </p>
+    
+    <div style="background: #f8fafc; padding: 2rem; border-radius: 12px; border: 2px solid #e2e8f0; overflow-x: auto; -webkit-overflow-scrolling: touch;">
+        <div class="chart-scroll-hint" style="display: none; text-align: center; color: #64748b; font-size: 0.9rem; margin-bottom: 1rem; padding: 0.5rem; background: #fef3c7; border-radius: 8px;">
+            👉 Swipe left/right to explore the chart
+        </div>
+        
+        <svg viewBox="0 0 900 550" style="width: 100%; min-width: 700px; max-width: 900px; margin: 0 auto; display: block;">
+            <!-- Define gradient for our solution -->
+            <defs>
+                <linearGradient id="ourGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                </linearGradient>
+                
+                <!-- Glow effect for our solution -->
+                <filter id="glow">
+                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                    <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+            </defs>
+            
+            <!-- Grid lines -->
+            <line x1="120" y1="80" x2="120" y2="450" stroke="#e2e8f0" stroke-width="2"/>
+            <line x1="120" y1="450" x2="820" y2="450" stroke="#e2e8f0" stroke-width="2"/>
+            
+            <!-- Grid lines (light) -->
+            <line x1="120" y1="350" x2="820" y2="350" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="5,5" opacity="0.5"/>
+            <line x1="120" y1="250" x2="820" y2="250" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="5,5" opacity="0.5"/>
+            <line x1="120" y1="150" x2="820" y2="150" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="5,5" opacity="0.5"/>
+            
+            <line x1="270" y1="450" x2="270" y2="80" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="5,5" opacity="0.5"/>
+            <line x1="420" y1="450" x2="420" y2="80" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="5,5" opacity="0.5"/>
+            <line x1="570" y1="450" x2="570" y2="80" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="5,5" opacity="0.5"/>
+            <line x1="720" y1="450" x2="720" y2="80" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="5,5" opacity="0.5"/>
+            
+            <!-- Axis labels -->
+            <text x="470" y="490" text-anchor="middle" font-size="16" font-weight="600" fill="#334155">
+                GPU Resistance / Memory Hardness →
+            </text>
+            <text x="50" y="265" text-anchor="middle" font-size="16" font-weight="600" fill="#334155" transform="rotate(-90 50 265)">
+                ← Cryptographic Strength
+            </text>
+            
+            <!-- Y-axis labels (more spacing) -->
+            <text x="105" y="455" text-anchor="end" font-size="13" fill="#64748b">Weak</text>
+            <text x="105" y="355" text-anchor="end" font-size="13" fill="#64748b">Good</text>
+            <text x="105" y="255" text-anchor="end" font-size="13" fill="#64748b">Strong</text>
+            <text x="105" y="125" text-anchor="end" font-size="13" fill="#64748b">Military</text>
+            <text x="105" y="95" text-anchor="end" font-size="13" fill="#64748b">Grade</text>
+            
+            <!-- X-axis labels -->
+            <text x="120" y="475" text-anchor="middle" font-size="13" fill="#64748b">None</text>
+            <text x="270" y="475" text-anchor="middle" font-size="13" fill="#64748b">Low</text>
+            <text x="420" y="475" text-anchor="middle" font-size="13" fill="#64748b">Medium</text>
+            <text x="570" y="475" text-anchor="middle" font-size="13" fill="#64748b">High</text>
+            <text x="720" y="475" text-anchor="middle" font-size="13" fill="#64748b">Very High</text>
+            
+            <!-- Data points with better spacing -->
+            
+            <!-- Plain Text / No Encryption -->
+            <circle cx="150" cy="420" r="10" fill="#ef4444" opacity="0.7"/>
+            <text x="150" y="400" text-anchor="middle" font-size="12" font-weight="600" fill="#dc2626">Plain Text</text>
+            <text x="150" y="442" text-anchor="middle" font-size="10" fill="#64748b">(Google Keep)</text>
+            
+            <!-- AES-256 with simple password -->
+            <circle cx="230" cy="330" r="10" fill="#f59e0b" opacity="0.7"/>
+            <text x="230" y="310" text-anchor="middle" font-size="12" font-weight="600" fill="#d97706">AES-256</text>
+            <text x="230" y="352" text-anchor="middle" font-size="10" fill="#64748b">(no KDF)</text>
+            
+            <!-- PBKDF2 + AES -->
+            <circle cx="350" cy="270" r="10" fill="#3b82f6" opacity="0.7"/>
+            <text x="350" y="250" text-anchor="middle" font-size="12" font-weight="600" fill="#2563eb">PBKDF2</text>
+            <text x="350" y="292" text-anchor="middle" font-size="10" fill="#64748b">+ AES-256</text>
+            
+            <!-- Apple Notes (PBKDF2 + AES-GCM) -->
+            <circle cx="420" cy="235" r="10" fill="#06b6d4" opacity="0.7"/>
+            <text x="420" y="215" text-anchor="middle" font-size="12" font-weight="600" fill="#0891b2">Apple Notes</text>
+            <text x="420" y="257" text-anchor="middle" font-size="10" fill="#64748b">(PBKDF2+AES)</text>
+            
+            <!-- bcrypt + AES -->
+            <circle cx="480" cy="250" r="10" fill="#8b5cf6" opacity="0.7"/>
+            <text x="480" y="230" text-anchor="middle" font-size="12" font-weight="600" fill="#7c3aed">bcrypt</text>
+            <text x="480" y="272" text-anchor="middle" font-size="10" fill="#64748b">+ AES-256</text>
+            
+            <!-- scrypt + ChaCha20 -->
+            <circle cx="600" cy="200" r="10" fill="#10b981" opacity="0.7"/>
+            <text x="600" y="180" text-anchor="middle" font-size="12" font-weight="600" fill="#059669">scrypt</text>
+            <text x="600" y="222" text-anchor="middle" font-size="10" fill="#64748b">+ ChaCha20</text>
+            
+            <!-- OUR SOLUTION - Argon2id + XChaCha20-Poly1305 (BIGGEST & HIGHLIGHTED) -->
+            <circle cx="760" cy="120" r="20" fill="url(#ourGradient)" filter="url(#glow)"/>
+            <circle cx="760" cy="120" r="18" fill="none" stroke="#fff" stroke-width="2"/>
+            <text x="760" y="85" text-anchor="middle" font-size="14" font-weight="700" fill="#667eea">Secure Notes</text>
+            <text x="760" y="150" text-anchor="middle" font-size="12" font-weight="600" fill="#334155">Argon2id +</text>
+            <text x="760" y="165" text-anchor="middle" font-size="12" font-weight="600" fill="#334155">XChaCha20-Poly1305</text>
+            
+            <!-- Star badge for our solution -->
+            <text x="747" y="125" font-size="18">⭐</text>
+            
+            <!-- Legend (moved lower for more space) -->
+            <!-- Legend (moved lower for more space) -->
+<rect x="520" y="500" width="300" height="40" fill="#fff" stroke="#e2e8f0" stroke-width="1" rx="8"/>
+<text x="670" y="518" text-anchor="middle" font-size="12" font-weight="600" fill="#334155">Security Level</text>
+<circle cx="540" cy="530" r="5" fill="#ef4444"/>
+<text x="550" y="534" font-size="10" fill="#64748b">Vulnerable</text>
+<circle cx="615" cy="530" r="5" fill="#f59e0b"/>
+<text x="625" y="534" font-size="10" fill="#64748b">Basic</text>
+<circle cx="690" cy="530" r="5" fill="#3b82f6"/>
+<text x="700" y="534" font-size="10" fill="#64748b">Good</text>
+<circle cx="765" cy="530" r="5" fill="url(#ourGradient)"/>
+<text x="775" y="534" font-size="10" fill="#64748b">Best</text>
+        </svg>
+    </div>
+    
+    <!-- Explanation cards -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 2rem;">
+        <div style="background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); padding: 1rem; border-radius: 8px; border-left: 4px solid #ef4444;">
+            <div style="font-weight: 600; color: #991b1b; margin-bottom: 0.5rem;">⚠️ Plain Text (Bottom Left)</div>
+            <div style="font-size: 0.9rem; color: #7f1d1d;">Zero protection. Anyone with database access reads your notes instantly.</div>
+        </div>
+        
+        <div style="background: linear-gradient(135deg, #fefce8 0%, #fef9c3 100%); padding: 1rem; border-radius: 8px; border-left: 4px solid #f59e0b;">
+            <div style="font-weight: 600; color: #92400e; margin-bottom: 0.5rem;">⚡ Basic Encryption</div>
+            <div style="font-size: 0.9rem; color: #78350f;">AES without proper key derivation. Vulnerable to GPU attacks.</div>
+        </div>
+        
+        <div style="background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); padding: 1rem; border-radius: 8px; border-left: 4px solid #3b82f6;">
+            <div style="font-weight: 600; color: #1e40af; margin-bottom: 0.5rem;">🛡️ Standard Protection</div>
+            <div style="font-size: 0.9rem; color: #1e3a8a;">PBKDF2/bcrypt offer decent protection but limited GPU resistance.</div>
+        </div>
+        
+        <div style="background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%); padding: 1rem; border-radius: 8px; border-left: 4px solid #667eea;">
+            <div style="font-weight: 600; color: #5b21b6; margin-bottom: 0.5rem;">⭐ Our Solution (Top Right)</div>
+            <div style="font-size: 0.9rem; color: #4c1d95;">Maximum security with memory-hard Argon2id + authenticated XChaCha20-Poly1305 AEAD.</div>
+        </div>
+    </div>
+    
+    <!-- Technical details -->
+    <div style="margin-top: 2rem; padding: 1.5rem; background: #0f172a; color: white; border-radius: 12px;">
+        <h3 style="color: #60a5fa; margin-bottom: 1rem;">📐 Why We're in the Top Right Corner</h3>
+        <div style="display: grid; gap: 1rem;">
+            <div>
+                <strong style="color: #60a5fa;">X-Axis (GPU Resistance):</strong>
+                <span style="opacity: 0.9;"> Argon2id is memory-hard, requiring 64MB+ RAM per hash. GPUs excel at parallel computation but have limited memory per core, making brute-force attacks economically infeasible.</span>
+            </div>
+            <div>
+                <strong style="color: #60a5fa;">Y-Axis (Cryptographic Strength):</strong>
+                <span style="opacity: 0.9;"> XChaCha20-Poly1305 provides 256-bit encryption + authentication. Extended nonce prevents reuse attacks. Poly1305 MAC ensures integrity. Breaking this would take 2²⁵⁶ operations = longer than the universe's age.</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    @media (max-width: 768px) {
+        .chart-scroll-hint {
+            display: block !important;
+        }
+    }
+</style>
+
+        <div class="content-section">
+            <h2>🔒 How It Works 🛡️</h2>
+            <div style="line-height: 1.8; color: #475569;">
+                <h3 style="color: #667eea; margin-top: 1.5rem;">1. Your Master Password Creates Your Encryption Key</h3>
+                <p>When you create your vault, your password goes through <strong>Argon2id key derivation</strong> with a unique salt. This creates your encryption key that never leaves your device.</p>
+
+                <h3 style="color: #667eea; margin-top: 1.5rem;">2. Every Note Is Encrypted Locally</h3>
+                <p>Each note is encrypted using <strong>XChaCha20-Poly1305 AEAD</strong> before being stored. Even if someone accesses your device storage, they only see encrypted gibberish.</p>
+
+                <h3 style="color: #667eea; margin-top: 1.5rem;">3. Zero-Knowledge Cloud Sync</h3>
+                <p>When you enable sync, your <strong>already-encrypted notes</strong> are sent to the cloud. The server never receives your master password or encryption keys - it only stores encrypted blobs.</p>
+
+                <h3 style="color: #667eea; margin-top: 1.5rem;">4. Multi-Device Access</h3>
+                <p>On a new device, enter your master password and encryption salt. Your encryption key is regenerated locally, allowing you to decrypt and access your notes.</p>
+
+                <h3 style="color: #667eea; margin-top: 1.5rem;">5. Biometric Convenience</h3>
+                <p>Enable biometric unlock to store your encrypted master password locally using <strong>WebAuthn</strong>. Your fingerprint/face never leaves your device - it just unlocks the encrypted password.</p>
+            </div>
+        </div>
+
+        
+
+        
+        <div class="content-section">
+    <h2>❓ Frequently Asked Questions</h2>
+    <div style="margin-top: 2rem;">
+        <h3 style="color: #667eea; margin-top: 1.5rem;">Can you read my notes?</h3>
+        <p><strong>No.</strong> Your notes are encrypted on your device before reaching our servers. We only store encrypted data and never have access to your master password or encryption keys.</p>
+
+        <h3 style="color: #667eea; margin-top: 1.5rem;">What happens if I forget my password?</h3>
+        <p>Because of zero-knowledge encryption, we cannot recover your password. However, you can export your encryption salt as a QR code or backup and use it on another device if you remember your password.</p>
+
+        <h3 style="color: #667eea; margin-top: 1.5rem;">Is it safe to use on public Wi-Fi?</h3>
+        <p><strong>Yes.</strong> All encryption happens locally on your device using XChaCha20-Poly1305 AEAD (Authenticated Encryption with Associated Data), and all network traffic uses HTTPS. Even if someone intercepts the data, they only see encrypted blobs that are cryptographically authenticated - meaning any tampering attempt will be detected and rejected.</p>
+        <p style="font-size: 0.9em; color: #555; margin-top: 0.5rem;"><em>Why this matters: AEAD ensures both confidentiality (data can't be read) and integrity (data can't be modified without detection), protecting you from man-in-the-middle attacks even on untrusted networks.</em></p>
+
+        <h3 style="color: #667eea; margin-top: 1.5rem;">How many devices can I sync?</h3>
+        <p>Unlimited to the extent of infrastructure possibilities. You can access your vault from any device - just use the same master password and encryption salt on each device.</p>
+
+        <h3 style="color: #667eea; margin-top: 1.5rem;">Is this really free?</h3>
+        <p><strong>Yes, completely free.</strong> No premium tiers, no feature restrictions, no ads. We believe privacy should be accessible to everyone.</p>
+    </div>
+</div>
+
+
+<div class="content-section">
+    <h2>🚫 What We DON'T Do</h2>
+    <div class="feature-grid">
+        <div class="feature-card">
+            <div class="feature-icon">
+                <svg width="48" height="48" viewBox="0 0 48 48" style="display: block; margin: 0 auto;">
+                    <!-- Eye icon -->
+                    <ellipse cx="24" cy="24" rx="12" ry="8" fill="#e2e8f0" stroke="#64748b" stroke-width="2"/>
+                    <circle cx="24" cy="24" r="4" fill="#64748b"/>
+                    <!-- Red X cross -->
+                    <line x1="8" y1="8" x2="40" y2="40" stroke="#ef4444" stroke-width="3" stroke-linecap="round"/>
+                    <line x1="40" y1="8" x2="8" y2="40" stroke="#ef4444" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <div class="feature-title">No Tracking</div>
+            <div class="feature-description">
+                Zero analytics, no cookies, no fingerprinting. We don't track what you write, when you write, or how often you use the app.
+            </div>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <svg width="48" height="48" viewBox="0 0 48 48" style="display: block; margin: 0 auto;">
+                    <!-- Dollar sign -->
+                    <circle cx="24" cy="24" r="10" fill="#e2e8f0" stroke="#64748b" stroke-width="2"/>
+                    <text x="24" y="32" text-anchor="middle" font-size="20" font-weight="bold" fill="#64748b">$</text>
+                    <!-- Red X cross -->
+                    <line x1="8" y1="8" x2="40" y2="40" stroke="#ef4444" stroke-width="3" stroke-linecap="round"/>
+                    <line x1="40" y1="8" x2="8" y2="40" stroke="#ef4444" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <div class="feature-title">No Data Selling</div>
+            <div class="feature-description">
+                We never sell, rent, or share your data. Since we can't read your notes anyway, there's nothing to sell.
+            </div>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <svg width="48" height="48" viewBox="0 0 48 48" style="display: block; margin: 0 auto;">
+                    <!-- Email envelope -->
+                    <rect x="10" y="14" width="28" height="20" rx="2" fill="#e2e8f0" stroke="#64748b" stroke-width="2"/>
+                    <path d="M 10 14 L 24 26 L 38 14" stroke="#64748b" stroke-width="2" fill="none"/>
+                    <!-- Red X cross -->
+                    <line x1="8" y1="8" x2="40" y2="40" stroke="#ef4444" stroke-width="3" stroke-linecap="round"/>
+                    <line x1="40" y1="8" x2="8" y2="40" stroke="#ef4444" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <div class="feature-title">No Spam</div>
+            <div class="feature-description">
+                We only email you for critical security alerts (new device logins). No newsletters, no marketing, no promotions.
+            </div>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <svg width="48" height="48" viewBox="0 0 48 48" style="display: block; margin: 0 auto;">
+                    <!-- Robot/AI head -->
+                    <rect x="14" y="18" width="20" height="16" rx="3" fill="#e2e8f0" stroke="#64748b" stroke-width="2"/>
+                    <circle cx="20" cy="25" r="2" fill="#64748b"/>
+                    <circle cx="28" cy="25" r="2" fill="#64748b"/>
+                    <rect x="22" y="28" width="4" height="3" fill="#64748b"/>
+                    <circle cx="11" cy="24" r="2" fill="#e2e8f0" stroke="#64748b" stroke-width="2"/>
+                    <circle cx="37" cy="24" r="2" fill="#e2e8f0" stroke="#64748b" stroke-width="2"/>
+                    <!-- Red X cross -->
+                    <line x1="8" y1="8" x2="40" y2="40" stroke="#ef4444" stroke-width="3" stroke-linecap="round"/>
+                    <line x1="40" y1="8" x2="8" y2="40" stroke="#ef4444" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <div class="feature-title">No AI Training</div>
+            <div class="feature-description">
+                Your encrypted notes will never be used to train AI models or any machine learning algorithms. Ever.
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content-section">
+    <h2>📊 Transparency: What We Store</h2>
+    <div style="line-height: 1.8; color: #475569;">
+        <div style="background: #f8fafc; border-left: 4px solid #10b981; padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem;">
+            <h4 style="color: #10b981; margin-bottom: 0.5rem;">✓ Encrypted Data We Store:</h4>
+            <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li>Your encrypted notes (gibberish without your password)</li>
+                <li>Device identifiers (to show you which devices accessed your vault)</li>
+                <li>Last sync timestamp (to detect sync conflicts)</li>
+                <li>Encrypted salt (for key derivation on new devices)</li>
+            </ul>
+        </div>
+        
+        <div style="background: #fef3c7; border-left: 4px solid #ef4444; padding: 1.5rem; border-radius: 8px;">
+            <h4 style="color: #dc2626; margin-bottom: 0.5rem;">✗ What We NEVER Store:</h4>
+            <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li>Your master password (never transmitted to our servers)</li>
+                <li>Your encryption keys (generated locally on your device)</li>
+                <li>Plain text notes (all encryption happens client-side)</li>
+                <li>Biometric data (handled entirely by your device)</li>
+                <li>Browsing history, IP logs, or usage analytics</li>
+                <li>Personal information (email optional, only for alerts)</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="content-section">
+    <h2>🌍 Real-World Protection Scenarios</h2>
+    <p style="color: #64748b; margin-bottom: 1.5rem;">
+        Here's what happens in different breach scenarios:
+    </p>
+    
+    <div style="display: grid; gap: 1.5rem;">
+        <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #f59e0b;">
+            <h4 style="color: #92400e; margin-bottom: 0.5rem;">⚠️ Scenario: Server Gets Hacked</h4>
+            <p style="color: #78350f;"><strong>With Secure Notes:</strong> Attackers get encrypted blobs. Without your password, it's useless gibberish that would take trillions of years to crack.</p>
+            <p style="color: #78350f; margin-top: 0.5rem;"><strong>With other apps:</strong> Attackers instantly read all your notes in plain text.</p>
+        </div>
+        
+        <div style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #3b82f6;">
+            <h4 style="color: #1e40af; margin-bottom: 0.5rem;">🏛️ Scenario: Government Subpoena</h4>
+            <p style="color: #1e3a8a;"><strong>With Secure Notes:</strong> We hand over encrypted blobs. Government still can't read your notes without your password.</p>
+            <p style="color: #1e3a8a; margin-top: 0.5rem;"><strong>With other apps:</strong> Government gets full access to all your notes immediately.</p>
+        </div>
+        
+        <div style="background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #ec4899;">
+            <h4 style="color: #9f1239; margin-bottom: 0.5rem;">👨‍💼 Scenario: Rogue Employee</h4>
+            <p style="color: #831843;"><strong>With Secure Notes:</strong> Employees can't read your notes - they don't have your password or encryption keys.</p>
+            <p style="color: #831843; margin-top: 0.5rem;"><strong>With other apps:</strong> Employees with database access can read everything.</p>
+        </div>
+        
+        <div style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #10b981;">
+            <h4 style="color: #065f46; margin-bottom: 0.5rem;">📱 Scenario: You Lose Your Phone</h4>
+            <p style="color: #064e3b;"><strong>With Secure Notes:</strong> Auto-lock protects your vault. Revoke device access from another device remotely.</p>
+            <p style="color: #064e3b; margin-top: 0.5rem;"><strong>With other apps:</strong> Anyone with your phone can read your notes if they're logged in.</p>
+        </div>
+    </div>
+</div>
+
+<div class="content-section">
+    <h2>💰 Support Development</h2>
+    <p style="color: #64748b; margin-bottom: 2rem;">
+        Secure Notes is completely free and open source. Your contributions help us keep it that way and fund ongoing development, security audits, and server costs.
+    </p>
+    
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; padding: 3rem; color: white; margin-bottom: 2rem;">
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">💎</div>
+            <h3 style="color: white; margin-bottom: 0.5rem;">Crypto Contribution</h3>
+            <p style="opacity: 0.9; font-size: 1.1rem;">Support us with USDT on the TRON network</p>
+        </div>
+        
+        <div style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 15px; max-width: 600px; margin: 0 auto;">
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                <span style="background: rgba(255, 255, 255, 0.2); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600;">Network</span>
+                <span style="font-weight: 600;">TRON (TRC20)</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem;">
+                <span style="background: rgba(255, 255, 255, 0.2); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600;">Currency</span>
+                <span style="font-weight: 600;">USDT (Tether)</span>
+            </div>
+            
+            <!-- Wallet Address -->
+            <div style="background: white; border-radius: 12px; padding: 0.1rem; margin-bottom: .2rem;">
+                <div style="font-size: 0.85rem; font-weight: 600; color: #64748b; margin-bottom: 0.5rem;">WALLET ADDRESS</div>
+                <div style="display: flex; align-items: center; gap: 1rem;flex-direction: column;">
+                    <code id="walletAddress" style="flex: 1; background: #f8fafc; padding: 1rem; border-radius: 8px; color: #1e293b; font-size: 0.9rem; word-break: break-all; font-family: 'Courier New', monospace;">TBcXFCLLXiReR7rAnRvrjrahLuJEgBhbem</code>
+                    <button onclick="copyWalletAddress()" id="copyBtn" style="background: #667eea; color: white; border: none; padding: 1rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.3s ease; font-size: 0.9rem;">
+                        📋 Copy
+                    </button>
+                </div>
+                <div id="copySuccess" style="color: #10b981; font-size: 0.85rem; margin-top: 0.5rem; opacity: 0; transition: opacity 0.3s;">
+                    ✓ Address copied to clipboard!
+                </div>
+            </div>
+            
+            <!-- QR Code -->
+            <div style="text-align: center;">
+                <div style="background: white; display: inline-block; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                    <div id="qrcode"></div>
+                </div>
+                <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.9;">Scan with your mobile wallet</p>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.2);">
+            <p style="font-size: 0.9rem; opacity: 0.8;">⚠️ <strong>Important:</strong> Only send USDT on the TRON (TRC20) network to this address. Sending other tokens or using different networks may result in loss of funds.</p>
+        </div>
+    </div>
+    
+    <script>
+    // Generate QR Code
+    const walletAddress = 'TBcXFCLLXiReR7rAnRvrjrahLuJEgBhbem';
+    const qr = qrcode(0, 'M');
+    qr.addData(walletAddress);
+    qr.make();
+    document.getElementById('qrcode').innerHTML = qr.createSvgTag(6, 0);
+    
+    function copyWalletAddress() {
+        const address = document.getElementById('walletAddress').textContent;
+        const btn = document.getElementById('copyBtn');
+        const successMsg = document.getElementById('copySuccess');
+        
+        // Copy to clipboard
+        navigator.clipboard.writeText(address).then(() => {
+            // Show success message
+            successMsg.style.opacity = '1';
+            btn.textContent = '✓ Copied!';
+            btn.style.background = '#10b981';
+            
+            // Reset after 2 seconds
+            setTimeout(() => {
+                successMsg.style.opacity = '0';
+                btn.textContent = '📋 Copy';
+                btn.style.background = '#667eea';
+            }, 2000);
+        }).catch(err => {
+            console.error('Failed to copy:', err);
+            alert('Failed to copy address. Please copy manually.');
+        });
+    }
+    </script>
+</div>
+
+
+
+
+<div class="content-section">
+    <h2>💬 Questions? We're Here to Help</h2>
+    <p style="color: #64748b; margin-bottom: 1.5rem;">
+        Real humans, real answers. No bots, no canned responses.
+    </p>
+    
+    <div class="feature-grid">
+        <div class="feature-card">
+            <div class="feature-icon">📧</div>
+            <div class="feature-title">Contact Us</div>
+            <div class="feature-description">
+                <a href="https://t.me/formegadmin" target="_blank" rel="noopener noreferrer" 
+           style="color: #667eea; text-decoration: none; font-weight: 600;">
+            t.me/formegadmin
+        </a><br>
+                <span style="font-size: 0.9rem; color: #64748b;">Response within 24 hours</span>
+            </div>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🐦</div>
+            <div class="feature-title">Follow Updates</div>
+            <div class="feature-description">
+                1.1<br>
+                <span style="font-size: 0.9rem; color: #64748b;">Security updates & new features</span>
+                <br>
+                <span style="font-size: 0.9rem; color: #64748b;">Planned to develop more according to user requests</span>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+
+
+
+<div class="cta-section">
+            <h2 style="color: white; margin-bottom: 1rem;">Ready to Secure Your Notes?</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">Start using military-grade encryption for your thoughts today. No credit card required.</p>
+            <a href="/" class="cta-button">🚀 Launch Secure Notes</a>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>🔐 Secure Notes - Built with ❤️ for privacy</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;">
+            <a href="/" style="color: white; text-decoration: none;">← Back to App</a>
+        </p>
+    </footer>
+</body>
+</html>
