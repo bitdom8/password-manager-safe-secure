@@ -1,4 +1,4 @@
-# 🔐 Secure Notes
+# 🔐 Pass Mega Secure Notes
 
 > **Military-grade encrypted note-taking with zero-knowledge architecture**
 
