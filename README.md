@@ -166,7 +166,7 @@ Secure Notes is completely free and open source. Your contributions help us keep
 
 **USDT (TRC20) Wallet:**
 ```
-TBcXFCLLXiReR7rAnRvrjrahLuJEgBhbem
+TEehyL1WTGpU3psiFHWmBPBes6Xi1Az3we
 ```
 
 ## 📞 Contact & Support
